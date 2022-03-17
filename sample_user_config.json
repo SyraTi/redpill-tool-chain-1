@@ -3,7 +3,9 @@
         "pid": "0x5571",
         "vid": "0x0781",
         "sn": "1830PDN537212",
-        "mac1": "00E04C67680D"
+        "mac1": "00E04C67680D",
+        "SataPortMap": "8",
+        "DiskIdxMap": "00"
     },
     "synoinfo": {},
     "ramdisk_copy": {},
