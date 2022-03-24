@@ -50,6 +50,21 @@ jobs:
       - name: 配置引导镜像
         run: |
           # 调整SN和MAC 最好使用 actions secrets 引入
-          sn=`./redpill_tool_chain.sh sn ${{matrix.platform}} | grep 'Serial Number' | awk '{print $3}'`
-          echo sn
+          ./redpill_tool_chain.sh sn ${{matrix.platform}} | grep 'Serial Number' | awk '{print $3}'
+          ./redpill_tool_chain.sh sn ${{matrix.platform}} | grep 'Serial Number' | awk '{print $3}' > 1.txt
+      
+      - name: 上传引导镜像到 github actions
+        uses: actions/upload-artifact@v2
+        with:
+          name: dsm-${{matrix.platform}}-${{matrix.version}}
+          path: 1.txt
+          if-no-files-found: error
+
+      - name: 删除旧的工作流
+        uses: Mattraks/delete-workflow-runs@v2
+        with:
+          token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          retain_days: 3
+          keep_minimum_runs: 6
   
